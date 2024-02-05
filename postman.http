@@ -1,0 +1,77 @@
+POST /api/auth/register HTTP/1.1
+Host: localhost:8000
+Content-Type: application/json
+Accept: application/json
+
+{
+    "image": null,
+    "first_name": "Tantely",
+    "phone_number": "123456789",
+    "last_name": "Tantely",
+    "username": "Tantely",
+    "email": "hei.tantely@gmail.com",
+    "address": "123 Main Street",
+    "city": "City ville",
+    "password": "2022tantely2022",
+    "password_confirmation": "2022tantely2022"
+}
+
+
+###
+POST /api/auth/login
+Host: localhost:8000
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "hei.tantely@gmail.com",
+    "password": "2022tantely2022"
+}
+
+
+###
+
+POST /api/auth/register HTTP/1.1
+Host: localhost:8000
+Content-Type: application/json
+Accept: application/json
+
+{
+    "image": null,
+    "first_name": "Heriniaina",
+    "phone_number": "123456788",
+    "last_name": "Heriniaina",
+    "username": "Heriniaina",
+    "email": "hei.heriniaina@gmail.com",
+    "address": "123 Main Street",
+    "city": "City ville",
+    "password": "Heriniaina",
+    "password_confirmation": "Heriniaina"
+}
+
+
+###
+
+POST /api/auth/login
+Host: localhost:8000
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "hei.heriniaina@gmail.com",
+    "password": "Heriniaina"
+}
+
+###
+GET /api/admin
+Host: localhost:8000
+Content-Type: application/json
+Accept: application/json
+Authorization:  Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MDcwNTMxNjYsImV4cCI6MTcwNzA1Njc2NiwibmJmIjoxNzA3MDUzMTY2LCJqdGkiOiJGajVNTmx1M0o0YWF0a0V6Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.n_IefJlbaWONRWoXYi_ohtgrV0bDa4JFVRyjpZ297vY
+
+###
+GET /api/other
+Host: localhost:8000
+Content-Type: application/json
+Accept: application/json
+
