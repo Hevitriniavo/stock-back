@@ -15,10 +15,9 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->timestamp('order_date');
-            $table->unsignedBigInteger('customer_id');
             $table->foreignIdFor(Customer::class)->constrained()
-                ->nullOnDelete()
-                ->nullOnDelete();
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->timestamps();
         });
     }
@@ -28,7 +27,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('articles', function (Blueprint $table) {
+        Schema::table('orders', function (Blueprint $table) {
             $table->dropForeignIdFor(Customer::class);
         });
         Schema::dropIfExists('orders');
