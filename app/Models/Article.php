@@ -34,4 +34,10 @@ class Article extends Model
     {
         return $this->hasMany(PurchaseLine::class);
     }
+
+
+    public function stockMovements(): HasMany
+    {
+        return $this->hasMany(StockMovement::class);
+    }
 }
