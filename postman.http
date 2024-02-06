@@ -5,11 +5,11 @@ Accept: application/json
 
 {
     "image": null,
-    "first_name": "Tantely",
+    "first_name": "Tantely3",
     "phone_number": "123456789",
     "last_name": "Tantely",
     "username": "Tantely",
-    "email": "hei.tantely@gmail.com",
+    "email": "hei.tantely2@gmail.com",
     "address": "123 Main Street",
     "city": "City ville",
     "password": "2022tantely2022",
@@ -24,7 +24,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-    "email": "hei.tantely@gmail.com",
+    "email": "hei.tantely2@gmail.com",
     "password": "2022tantely2022"
 }
 
@@ -74,4 +74,20 @@ GET /api/other
 Host: localhost:8000
 Content-Type: application/json
 Accept: application/json
+
+
+
+###
+POST /api/logout
+Host: localhost:8000
+Content-Type: application/json
+Accept: application/json
+Authorization:  Bearer  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MDcyNDMzNjYsImV4cCI6MTcwNzI0Njk2NiwibmJmIjoxNzA3MjQzMzY2LCJqdGkiOiJCeGc5OTd1V2pmaEhOZDcyIiwic3ViIjoiNyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.4NQnmVOkAI8M60WiNhdK25LOcPZynvSinCGy_afdcS0
+
+###
+GET /api/me
+Host: localhost:8000
+Content-Type: application/json
+Accept: application/json
+Authorization:  Bearer  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MDcyNDM2OTcsImV4cCI6MTcwNzI0NzI5NywibmJmIjoxNzA3MjQzNjk3LCJqdGkiOiJKOEIwM0pIZU0zall5Z2VhIiwic3ViIjoiNyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.EW008kFWU_nIhjZDMdG4PwzZoUIBMEZns9QgmOwbeh0
 

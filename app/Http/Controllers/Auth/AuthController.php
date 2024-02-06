@@ -12,30 +12,34 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
+    public function __construct(
+        private readonly UserController $controller
+    ){}
+
     public function login(LoginUserRequest $request): JsonResponse
     {
-         $token = auth()->attempt($request->validated());
-         if ($token) {
-             return $this->respondWithToken($token, auth()->user());
-         } else {
-             return response()->json([
-                 'status' => 'failed',
-                 'message' => 'Invalid credentials'
-             ], 401);
-         }
-
+        $token = auth()->attempt($request->validated());
+        if ($token) {
+            return $this->respondWithToken($token);
+        } else {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'Invalid credentials'
+            ], 401);
+        }
     }
+
 
     public function register(CreateUserRequest $request): JsonResponse
     {
         $data = $request->validated();
 
-        $user = User::create((new UserController())->extractData($data));
+        $user = User::create($this->controller->extractData($request));
 
         if ($user) {
-           // $token = auth()->login($user);
+            // $token = auth()->login($user);
             $token = JWTAuth::fromUser($user);
-            return $this->respondWithToken($token, $user);
+            return $this->respondWithToken($token);
         } else {
             return response()->json([
                 'status' => 'failed',
@@ -44,18 +48,17 @@ class AuthController extends Controller
         }
     }
 
-    public function respondWithToken($token,  $user):JsonResponse
+
+    public function respondWithToken($token):JsonResponse
     {
         return response()->json([
             'status' => 'success',
-            "user" => $user,
             'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'token_type' => 'bearer'
         ]);
     }
 
-    public function logout()
+    public function logout(): JsonResponse
     {
         JWTAuth::invalidate(JWTAuth::parseToken());
         return response()->json(['message' => 'Successfully logged out']);
@@ -65,7 +68,7 @@ class AuthController extends Controller
     {
         $newToken = JWTAuth::refresh(JWTAuth::parseToken());
         $user = auth()->user();
-        return $this->respondWithToken($newToken, $user);
+        return $this->respondWithToken($newToken);
     }
 
 
