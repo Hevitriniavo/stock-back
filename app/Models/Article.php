@@ -29,4 +29,9 @@ class Article extends Model
     {
         return $this->hasMany(OrderLine::class);
     }
+
+    public function purchaseLines(): HasMany
+    {
+        return $this->hasMany(PurchaseLine::class);
+    }
 }
