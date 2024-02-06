@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Customer;
-use App\Models\Supplier;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,15 +12,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('phone_numbers', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('number', 20);
+            $table->timestamp('order_date');
+            $table->unsignedBigInteger('customer_id');
             $table->foreignIdFor(Customer::class)->constrained()
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
-            $table->foreignIdFor(Supplier::class)->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
+                ->nullOnDelete()
+                ->nullOnDelete();
             $table->timestamps();
         });
     }
@@ -31,10 +28,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('phone_numbers', function (Blueprint $table) {
+        Schema::table('articles', function (Blueprint $table) {
             $table->dropForeignIdFor(Customer::class);
-            $table->dropForeignIdFor(Supplier::class);
         });
-        Schema::dropIfExists('phone_numbers');
+        Schema::dropIfExists('orders');
     }
 };
