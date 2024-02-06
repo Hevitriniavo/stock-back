@@ -70,7 +70,7 @@ class User extends Authenticatable implements JWTSubject
     }
 
 
-    public function hasRole($role)
+    public function hasRole($role): bool
     {
         return $this->role === $role;
     }
