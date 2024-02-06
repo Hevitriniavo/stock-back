@@ -28,4 +28,8 @@ class Order extends Model
     }
 
 
+    public function deliveryDetails(): HasMany
+    {
+        return $this->hasMany(DeliveryDetail::class);
+    }
 }
