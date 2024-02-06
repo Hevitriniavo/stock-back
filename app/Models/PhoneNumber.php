@@ -21,4 +21,9 @@ class PhoneNumber extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
+    public function supplier(): BelongsTo
+    {
+        return $this->belongsTo(Supplier::class);
+    }
 }
