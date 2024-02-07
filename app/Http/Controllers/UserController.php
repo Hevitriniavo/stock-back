@@ -14,8 +14,9 @@
 
         public function getUsers():JsonResponse
         {
+            $users = User::all();
             return response()->json([
-               'users' => UserResource::collection(User::all())
+               'users' => UserResource::collection($users)
             ]);
         }
 
@@ -34,7 +35,7 @@
             ]);
         }
 
-        public function storeOrUpdate(CreateUserRequest $request, $id = null): JsonResponse
+        public function storeOrUpdateSupplier(CreateUserRequest $request, $id = null): JsonResponse
         {
             if ($id !== null) {
                 $user = User::findOrFail($id);

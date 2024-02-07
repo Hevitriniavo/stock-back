@@ -33,7 +33,7 @@ Route::group(['prefix' => 'user'], function () {
 Route::group(['prefix' => 'supplier'], function () {
     Route::get('/all', [SupplierController::class, 'getSuppliers']);
     Route::get('/{id}', [SupplierController::class, 'getSupplier'])->where(['id' => '[0-9]+']);
-    Route::post('/crup/{id?}', [SupplierController::class, 'storeOrUpdate'])->where('id', '[0-9]*');;
+    Route::post('/crup/{id?}', [SupplierController::class, 'storeOrUpdateSupplier'])->where('id', '[0-9]*');;
     Route::delete('/delete/{id}', [SupplierController::class, 'destroy'])->where(['id' => '[0-9]+']);
 });
 

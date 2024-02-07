@@ -13,8 +13,9 @@ class SupplierController extends Controller
 {
     public function getSuppliers():JsonResponse
     {
+        $suppliers = Supplier::all();
         return response()->json([
-            'suppliers' => SupplierResource::collection(Supplier::all())
+            'suppliers' => SupplierResource::collection($suppliers)
         ]);
     }
 
@@ -24,7 +25,7 @@ class SupplierController extends Controller
 
         if (!$supplier) {
             return response()->json([
-                'message' => 'User not found',
+                'message' => 'Supplier not found',
             ], 404);
         }
 
