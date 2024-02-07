@@ -30,64 +30,16 @@ Accept: application/json
 
 
 ###
-
-POST /api/auth/register HTTP/1.1
-Host: localhost:8000
-Content-Type: application/json
-Accept: application/json
-
-{
-    "image": null,
-    "first_name": "Heriniaina",
-    "phone_number": "123456788",
-    "last_name": "Heriniaina",
-    "username": "Heriniaina",
-    "email": "hei.heriniaina@gmail.com",
-    "address": "123 Main Street",
-    "city": "City ville",
-    "password": "Heriniaina",
-    "password_confirmation": "Heriniaina"
-}
-
-
-###
-
-POST /api/auth/login
-Host: localhost:8000
-Content-Type: application/json
-Accept: application/json
-
-{
-    "email": "hei.heriniaina@gmail.com",
-    "password": "Heriniaina"
-}
-
-###
-GET /api/admin
-Host: localhost:8000
-Content-Type: application/json
-Accept: application/json
-Authorization:  Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MDcwNTMxNjYsImV4cCI6MTcwNzA1Njc2NiwibmJmIjoxNzA3MDUzMTY2LCJqdGkiOiJGajVNTmx1M0o0YWF0a0V6Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.n_IefJlbaWONRWoXYi_ohtgrV0bDa4JFVRyjpZ297vY
-
-###
-GET /api/other
-Host: localhost:8000
-Content-Type: application/json
-Accept: application/json
-
-
-
-###
 POST /api/logout
 Host: localhost:8000
 Content-Type: application/json
 Accept: application/json
-Authorization:  Bearer  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MDcyNDMzNjYsImV4cCI6MTcwNzI0Njk2NiwibmJmIjoxNzA3MjQzMzY2LCJqdGkiOiJCeGc5OTd1V2pmaEhOZDcyIiwic3ViIjoiNyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.4NQnmVOkAI8M60WiNhdK25LOcPZynvSinCGy_afdcS0
+Authorization:  Bearer  token
 
 ###
-GET /api/me
+POST /api/refresh
 Host: localhost:8000
 Content-Type: application/json
 Accept: application/json
-Authorization:  Bearer  eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3MDcyNDM2OTcsImV4cCI6MTcwNzI0NzI5NywibmJmIjoxNzA3MjQzNjk3LCJqdGkiOiJKOEIwM0pIZU0zall5Z2VhIiwic3ViIjoiNyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.EW008kFWU_nIhjZDMdG4PwzZoUIBMEZns9QgmOwbeh0
+Authorization:  Bearer  token
 
