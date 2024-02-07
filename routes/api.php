@@ -5,6 +5,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ArticleController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -38,27 +39,20 @@ Route::group(['prefix' => 'supplier'], function () {
 });
 
 
+Route::group(['prefix' => 'articles'], function () {
+    Route::get('/', [ArticleController::class, 'getArticles']);
+    Route::get('/category', [ArticleController::class, 'getArticlesWithCategory']);
+});
+
+
+
+
 /**
  * Authenticated routes
  */
 Route::group(['middleware' => 'auth:api'], function () {
-
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/me', [AuthController::class, 'me']);
-
-    // Admin routes
-    Route::group(['middleware' => 'role:admin'], function () {
-        Route::get('/admin', function () {
-            return ["hello" => "admin"];
-        });
-    });
-
-    // User routes
-    Route::group(['middleware' => 'role:user'], function () {
-        Route::get('/other', function () {
-            return ["hello" => "user"];
-        });
-    });
 });
 
