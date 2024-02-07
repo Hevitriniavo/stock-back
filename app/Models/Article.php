@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 class Article extends Model
 {
@@ -44,5 +45,10 @@ class Article extends Model
     public function deliveryDetails(): HasMany
     {
         return $this->hasMany(DeliveryDetail::class);
+    }
+
+    public function imageUrl(): string
+    {
+        return Storage::disk('public')->url($this->image);
     }
 }

@@ -17,6 +17,7 @@ class ArticleResourceWithCategory extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'image' => $this->imageUrl(),
             'unit_price' => $this->unit_price,
             'quantity_stock' => $this->quantity_stock,
             'category' => new CategoryResource($this->category),
