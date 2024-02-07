@@ -6,6 +6,7 @@ use App\Http\Resources\ArticleResource;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Database\Eloquent\Builder;
 
 class ArticleController extends Controller
 {
@@ -24,7 +25,7 @@ class ArticleController extends Controller
 
         if ($categoryName !== null) {
             $query->whereHas('category', function ($query) use ($categoryName) {
-                $query->where('name', 'ilike', "%$categoryName%");
+                $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($categoryName) . '%']);
             });
         }
 
@@ -35,7 +36,7 @@ class ArticleController extends Controller
     }
 
 
-    private function filterArticles(Request $request): \Illuminate\Database\Eloquent\Builder
+    private function filterArticles(Request $request): Builder
     {
         $query = Article::with('category');
         $minPrice = $request->input('min_price');
@@ -51,7 +52,7 @@ class ArticleController extends Controller
         }
 
         if ($name !== null) {
-            $query->where('name', 'ilike', "%$name%");
+            $query->where('name', 'like', "%$name%");
         }
 
         return $query;
