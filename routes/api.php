@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +21,7 @@ Route::prefix('auth')->group(function () {
 Route::prefix('user')->group(function () {
     Route::get('/all', [UserController::class, 'getUsers']);
     Route::get('/{id}', [UserController::class, 'getUser'])->where(['id' => '[0-9]+']);
-    Route::post('/crup/{id?}', [UserController::class, 'storeOrUpdate'])->where('id', '[0-9]*');;
+    Route::post('/crup/{id?}', [UserController::class, 'storeOrUpdateUser'])->where('id', '[0-9]*');;
     Route::delete('/delete/{id}', [UserController::class, 'destroy'])->where(['id' => '[0-9]+']);
 });
 
@@ -31,10 +32,20 @@ Route::prefix('supplier')->group(function () {
     Route::delete('/delete/{id}', [SupplierController::class, 'destroy'])->where(['id' => '[0-9]+']);
 });
 
-Route::prefix('articles')->group(function () {
-    Route::get('/', [ArticleController::class, 'getArticles']);
-    Route::get('/category', [ArticleController::class, 'getArticlesWithCategory']);
+Route::prefix('category')->group(function () {
+    Route::get('/all', [CategoryController::class, 'getCategories']);
+    Route::get('/{id}', [CategoryController::class, 'getCategory'])->where(['id' => '[0-9]+']);
+    Route::post('/crup/{id?}', [CategoryController::class, 'storeOrUpdateCategory'])->where('id', '[0-9]*');
+    Route::delete('/delete/{id}', [CategoryController::class, 'destroy'])->where(['id' => '[0-9]+']);
 });
+
+
+Route::prefix('article')->group(function () {
+    Route::get('/all', [ArticleController::class, 'getArticles']);
+    Route::post('/crup/{id?}', [ArticleController::class, 'storeOrUpdateArticle'])->where('id', '[0-9]*');;
+});
+
+
 
 /**
  * Authenticated routes

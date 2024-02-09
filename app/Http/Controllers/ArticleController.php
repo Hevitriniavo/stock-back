@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateArticleRequest;
 use App\Http\Resources\ArticleResource;
-use App\Http\Resources\ArticleResourceWithCategory;
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -20,23 +23,56 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function getArticlesWithCategory(Request $request): JsonResponse
+
+    public function storeOrUpdateArticle(CreateArticleRequest $request, ?int $id = null): JsonResponse
     {
-        $perPage = $request->input('per_page', 10);
-        $query = $this->filterArticles($request);
-        $categoryName = $request->input('category_name');
-        if ($categoryName !== null) {
-            $query->whereHas('category', function ($query) use ($categoryName) {
-                $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($categoryName) . '%']);
-            });
+        $data = $this->extractData($request, $id ? Article::findOrFail($id) : new Article());
+
+        if (isset($data['category_id'])) {
+            $category = Category::findOrFail($data['category_id']);
+        } elseif (isset($data['category'])) {
+            $category = Category::updateOrCreate(['id' => $data['category']['id']], ['name' => $data['category']['name']]);
+        } else {
+            return response()->json(['error' => 'Category data is missing or incomplete.'], 422);
         }
 
-        $articles = $query->paginate($perPage);
+        if ($id !== null) {
+            $article = Article::findOrFail($id);
+            $article->update($data);
+        } else {
+            $article = new Article($data);
+            $article->save();
+        }
+
+        $article->category()->associate($category);
+        $article->save();
+
         return response()->json([
-            'articles' => ArticleResourceWithCategory::collection($articles)
+            "article" => new ArticleResource($article)
         ]);
     }
 
+
+
+
+
+    public function destroy(int $id): JsonResponse
+    {
+        $article = Article::find($id);
+        $res = Article::find($id);
+
+        if (!$article) {
+            return response()->json([
+                'message' => 'Article not found',
+            ], 404);
+        }
+
+        $article->delete();
+
+        return response()->json([
+            'article' => new Article($res),
+        ]);
+    }
 
     private function filterArticles(Request $request): Builder
     {
@@ -58,6 +94,20 @@ class ArticleController extends Controller
         }
 
         return $query;
+    }
+
+    private function extractData(CreateArticleRequest $request, ?Article $article = null){
+        $data = $request->validated();
+        $image = $data['image'] ?? null;
+
+        if ($image instanceof UploadedFile && !$image->getError()) {
+            if ($article->image !== null) {
+                Storage::disk("public")->delete($article->image);
+            }
+            $data["image"] = $image->store("articles", "public");
+        }
+
+        return $data;
     }
 }
 

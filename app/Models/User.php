@@ -76,9 +76,12 @@ class User extends Authenticatable implements JWTSubject
     }
 
 
-    public function imageUrl(): string
+    public function imageUrl(): ?string
     {
-        return Storage::disk('public')->url($this->image);
+        if ($this->image !== null){
+            return Storage::disk('public')->url($this->image);
+        }
+        return null;
     }
 
 }

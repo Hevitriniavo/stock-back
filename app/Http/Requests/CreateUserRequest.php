@@ -22,6 +22,7 @@ class CreateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg',
             'first_name' => 'string|max:150',
             'phone_number' => 'string|max:20',
             'last_name' => 'nullable|string|max:150',
@@ -30,7 +31,6 @@ class CreateUserRequest extends FormRequest
             'address' => 'nullable|string',
             'city' => 'nullable|string|max:150',
             'password' => 'string|min:8|confirmed',
-            'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg',
         ];
 
     }

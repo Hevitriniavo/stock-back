@@ -32,12 +32,9 @@ class AuthController extends Controller
 
     public function register(CreateUserRequest $request): JsonResponse
     {
-        $data = $request->validated();
-
-        $user = User::create($this->controller->extractData($request));
+        $user = User::create($this->controller->extractData($request, new User()));
 
         if ($user) {
-            // $token = auth()->login($user);
             $token = JWTAuth::fromUser($user);
             return $this->respondWithToken($token);
         } else {
@@ -67,7 +64,6 @@ class AuthController extends Controller
     public function refresh(): JsonResponse
     {
         $newToken = JWTAuth::refresh(JWTAuth::parseToken());
-        $user = auth()->user();
         return $this->respondWithToken($newToken);
     }
 

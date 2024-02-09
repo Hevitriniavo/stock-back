@@ -35,7 +35,7 @@
             ]);
         }
 
-        public function storeOrUpdateSupplier(CreateUserRequest $request, $id = null): JsonResponse
+        public function storeOrUpdateUser(CreateUserRequest $request, ?int $id = null): JsonResponse
         {
             if ($id !== null) {
                 $user = User::findOrFail($id);

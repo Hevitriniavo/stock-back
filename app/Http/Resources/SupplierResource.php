@@ -15,14 +15,14 @@ class SupplierResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'image' => $this->imageUrl(),
-            'email' => $this->email,
-            'address' => $this->address,
-            'city' => $this->city,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'id' => $this->resource->id,
+            'name' => $this->resource->name,
+            'image' => $this->resource->imageUrl(),
+            'email' => $this->resource->email,
+            'address' => $this->resource->address,
+            'city' => $this->resource->city,
+            'created_at' => $this->resource->created_at,
+            'updated_at' => $this->resource->updated_at,
         ];
     }
 }

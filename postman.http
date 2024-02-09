@@ -9,7 +9,7 @@ Accept: application/json
     "phone_number": "123456789",
     "last_name": "Tantely",
     "username": "Tantely",
-    "email": "hei.tantely2@gmail.com",
+    "email": "hei.tantely.2221123@gmail.com",
     "address": "123 Main Street",
     "city": "City ville",
     "password": "2022tantely2022",
@@ -43,3 +43,12 @@ Content-Type: application/json
 Accept: application/json
 Authorization:  Bearer  token
 
+###
+POST /api/category/crup/8 HTTP/1.1
+Host: localhost:8000
+Content-Type: application/json
+Accept: application/json
+
+{
+"name": "Mini PC"
+}
