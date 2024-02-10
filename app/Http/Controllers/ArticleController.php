@@ -43,6 +43,7 @@ class ArticleController extends Controller
             'article' => new ArticleResource($article)
         ]);
     }
+
     public function storeOrUpdateArticle(CreateArticleRequest $request, ?int $id = null): JsonResponse
     {
         if ($id !== null) {

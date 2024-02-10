@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CategoryWithArticleController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -35,11 +36,12 @@ Route::prefix('supplier')->group(function () {
 
 Route::prefix('category')->group(function () {
     Route::get('/all', [CategoryController::class, 'getCategories']);
+    Route::get('/article', [CategoryWithArticleController::class, 'categoryWithArticle']);
+    Route::get('/article/{id}', [CategoryWithArticleController::class, 'categoryWithArticleById']);
     Route::get('/{id}', [CategoryController::class, 'getCategory'])->where(['id' => '[0-9]+']);
     Route::post('/crup/{id?}', [CategoryController::class, 'storeOrUpdateCategory'])->where('id', '[0-9]*');
     Route::delete('/delete/{id}', [CategoryController::class, 'destroy'])->where(['id' => '[0-9]+']);
 });
-
 
 Route::prefix('article')->group(function () {
     Route::get('/all', [ArticleController::class, 'getArticles']);
