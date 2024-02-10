@@ -55,16 +55,8 @@ Accept: application/json
 
 ###
 
-POST /api/article/crup HTTP/1.1
+DELETE /api/article/delete/5 HTTP/1.1
 Host: localhost:8000
 Content-Type: application/json
 Accept: application/json
-
-{
-    "name": "ASUS",
-    "unit_price": 500,
-    "quantity_stock": 10,
-    "category_id": 1
-}
-
 

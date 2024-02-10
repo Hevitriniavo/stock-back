@@ -25,6 +25,7 @@ Route::prefix('user')->group(function () {
     Route::delete('/delete/{id}', [UserController::class, 'destroy'])->where(['id' => '[0-9]+']);
 });
 
+
 Route::prefix('supplier')->group(function () {
     Route::get('/all', [SupplierController::class, 'getSuppliers']);
     Route::get('/{id}', [SupplierController::class, 'getSupplier'])->where(['id' => '[0-9]+']);
@@ -42,7 +43,8 @@ Route::prefix('category')->group(function () {
 
 Route::prefix('article')->group(function () {
     Route::get('/all', [ArticleController::class, 'getArticles']);
-    Route::post('/crup/{id?}', [ArticleController::class, 'storeOrUpdateArticle'])->where('id', '[0-9]*');;
+    Route::post('/crup/{id?}', [ArticleController::class, 'storeOrUpdateArticle'])->where('id', '[0-9]*');
+    Route::delete('/delete/{id}', [ArticleController::class, 'destroy'])->where(['id' => '[0-9]+']);
 });
 
 

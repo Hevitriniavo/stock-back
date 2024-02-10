@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateArticleRequest;
 use App\Http\Resources\ArticleResource;
 use App\Models\Article;
-use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,32 +13,33 @@ use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
-    public function getArticles(Request $request): JsonResponse
+    public function getArticles(): JsonResponse
     {
-        $perPage = $request->input('per_page', 10);
-        $articles = $this->filterArticles($request)->paginate($perPage);
         return response()->json([
-            'articles' => ArticleResource::collection($articles)
+            'articles' => ArticleResource::collection(Article::all())
         ]);
     }
 
 
     public function storeOrUpdateArticle(CreateArticleRequest $request, ?int $id = null): JsonResponse
     {
-           var_dump($request->validated());
+        if ($id !== null) {
+            $article = Article::findOrFail($id);
+            $article->update($this->extractData($request, $article));
+        } else {
+            $article = Article::create($this->extractData($request, new Article()));
+        }
         return response()->json([
-            "article" => 'ok'
+            "article" => new ArticleResource($article)
         ]);
     }
 
 
-
-
-
     public function destroy(int $id): JsonResponse
     {
-        $article = Article::find($id);
         $res = Article::find($id);
+        $article = Article::find($id);
+
 
         if (!$article) {
             return response()->json([
@@ -47,34 +47,17 @@ class ArticleController extends Controller
             ], 404);
         }
 
+        if ($article->image) {
+            Storage::disk("public")->delete($article->image);
+        }
+
         $article->delete();
 
         return response()->json([
-            'article' => new Article($res),
+            'article' => new ArticleResource($res),
         ]);
     }
 
-    private function filterArticles(Request $request): Builder
-    {
-        $minPrice = $request->input('min_price');
-        $maxPrice = $request->input('max_price');
-        $name = $request->input('name');
-        $query = Article::with('category');
-
-        if ($minPrice !== null) {
-            $query->where('unit_price', '>=', $minPrice);
-        }
-
-        if ($maxPrice !== null) {
-            $query->where('unit_price', '<=', $maxPrice);
-        }
-
-        if ($name !== null) {
-            $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($name) . '%']);
-        }
-
-        return $query;
-    }
 
     private function extractData(CreateArticleRequest $request, ?Article $article = null): array
     {

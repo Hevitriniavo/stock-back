@@ -23,7 +23,7 @@ class CreateSupplierRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:100',
-            'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg',
+            'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,webp',
             'email' => 'required|email|max:100',
             'address' => 'nullable|string',
             'city' => 'nullable|string|max:150',

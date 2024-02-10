@@ -23,10 +23,11 @@ class CreateArticleRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'unit_price' => 'required|min:0',
-            'quantity_stock' => 'required|min:0',
-            'category_id' => 'required',
-            'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg',
+            'unit_price' => 'required|numeric|min:0',
+            'quantity_stock' => 'required|numeric|min:0',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,webp',
         ];
+
     }
 }
