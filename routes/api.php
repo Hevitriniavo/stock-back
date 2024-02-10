@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryWithArticleController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +58,17 @@ Route::prefix('customer')->group(function () {
     Route::post('/crup/{id?}', [CustomerController::class, 'storeOrUpdateCustomer'])->where('id', '[0-9]*');
     Route::delete('/delete/{id}', [CustomerController::class, 'destroy'])->where(['id' => '[0-9]+']);
 });
+
+
+
+
+Route::prefix('delivery')->group(function () {
+    Route::get('/all', [DeliveryController::class, 'getDeliveries']);
+    Route::get('/{id}', [DeliveryController::class, 'getDelivery']);
+    Route::post('/crup/{id?}', [DeliveryController::class, 'storeOrUpdateDelivery'])->where('id', '[0-9]*');
+    Route::delete('/delete/{id}', [DeliveryController::class, 'destroy'])->where(['id' => '[0-9]+']);
+});
+
 
 
 /**
