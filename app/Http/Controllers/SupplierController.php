@@ -6,16 +6,27 @@ use App\Http\Requests\CreateSupplierRequest;
 use App\Http\Resources\SupplierResource;
 use App\Models\Supplier;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 class SupplierController extends Controller
 {
-    public function getSuppliers():JsonResponse
+    public function getSuppliers(Request $request):JsonResponse
     {
-        $suppliers = Supplier::all();
+
+        $page = $request->input("per_page", 10);
+        $suppliers = Supplier::paginate($page);
         return response()->json([
-            'suppliers' => SupplierResource::collection($suppliers)
+            'suppliers' => SupplierResource::collection($suppliers),
+            'pagination' => [
+                'total' => $suppliers->total(),
+                'per_page' => $suppliers->perPage(),
+                'current_page' => $suppliers->currentPage(),
+                'last_page' => $suppliers->lastPage(),
+                'from' => $suppliers->firstItem(),
+                'to' => $suppliers->lastItem(),
+            ],
         ]);
     }
 

@@ -6,15 +6,25 @@ use App\Http\Requests\CreateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
 
-    public function getCategories(): JsonResponse
+    public function getCategories(Request $request): JsonResponse
     {
-        $categories = Category::all();
+        $page = $request->input("per_page", 10);
+        $categories = Category::paginate($page);
         return response()->json([
-            "categories" => CategoryResource::collection($categories)
+            "categories" => CategoryResource::collection($categories),
+            'pagination' => [
+                'total' => $categories->total(),
+                'per_page' => $categories->perPage(),
+                'current_page' => $categories->currentPage(),
+                'last_page' => $categories->lastPage(),
+                'from' => $categories->firstItem(),
+                'to' => $categories->lastItem(),
+            ],
         ]);
     }
 

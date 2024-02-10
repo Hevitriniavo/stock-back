@@ -6,15 +6,26 @@ use App\Http\Requests\CreateArticleRequest;
 use App\Http\Resources\ArticleResource;
 use App\Models\Article;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
-    public function getArticles(): JsonResponse
+    public function getArticles(Request $request): JsonResponse
     {
+        $page = $request->input("per_page", 10);
+        $articles = Article::paginate($page);
         return response()->json([
-            'articles' => ArticleResource::collection(Article::all())
+            "articles" => ArticleResource::collection($articles),
+            'pagination' => [
+                'total' => $articles->total(),
+                'per_page' => $articles->perPage(),
+                'current_page' => $articles->currentPage(),
+                'last_page' => $articles->lastPage(),
+                'from' => $articles->firstItem(),
+                'to' => $articles->lastItem(),
+            ],
         ]);
     }
 
