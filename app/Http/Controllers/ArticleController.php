@@ -26,29 +26,9 @@ class ArticleController extends Controller
 
     public function storeOrUpdateArticle(CreateArticleRequest $request, ?int $id = null): JsonResponse
     {
-        $data = $this->extractData($request, $id ? Article::findOrFail($id) : new Article());
-
-        if (isset($data['category_id'])) {
-            $category = Category::findOrFail($data['category_id']);
-        } elseif (isset($data['category'])) {
-            $category = Category::updateOrCreate(['id' => $data['category']['id']], ['name' => $data['category']['name']]);
-        } else {
-            return response()->json(['error' => 'Category data is missing or incomplete.'], 422);
-        }
-
-        if ($id !== null) {
-            $article = Article::findOrFail($id);
-            $article->update($data);
-        } else {
-            $article = new Article($data);
-            $article->save();
-        }
-
-        $article->category()->associate($category);
-        $article->save();
-
+           var_dump($request->validated());
         return response()->json([
-            "article" => new ArticleResource($article)
+            "article" => 'ok'
         ]);
     }
 
@@ -96,8 +76,9 @@ class ArticleController extends Controller
         return $query;
     }
 
-    private function extractData(CreateArticleRequest $request, ?Article $article = null){
-        $data = $request->validated();
+    private function extractData(CreateArticleRequest $request, ?Article $article = null): array
+    {
+        $data = $request->all();
         $image = $data['image'] ?? null;
 
         if ($image instanceof UploadedFile && !$image->getError()) {

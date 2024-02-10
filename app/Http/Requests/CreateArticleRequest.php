@@ -22,14 +22,11 @@ class CreateArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048',
-            'name' => 'required|string|max:255',
-            'unit_price' => 'required|numeric|min:0',
-            'quantity_stock' => 'required|numeric|min:0',
-            'category_id' => 'nullable|numeric',
-            'category' => 'nullable|array',
-            'category.id' => 'numeric',
-            'category.name' => 'string|max:255',
+            'name' => 'required|string',
+            'unit_price' => 'required|min:0',
+            'quantity_stock' => 'required|min:0',
+            'category_id' => 'required',
+            'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg',
         ];
     }
 }
