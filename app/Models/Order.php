@@ -17,6 +17,12 @@ class Order extends Model
     ];
 
 
+    public function formatDateToTimestamp($dateTimeString): string
+    {
+        $timestamp = strtotime($dateTimeString);
+        return date('Y-m-d H:i:s', $timestamp);
+    }
+
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);

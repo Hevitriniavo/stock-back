@@ -18,6 +18,11 @@ class Customer extends Model
         'city',
     ];
 
+    public function formatDateToTimestamp($dateTimeString): string
+    {
+        $timestamp = strtotime($dateTimeString);
+        return date('Y-m-d H:i:s', $timestamp);
+    }
 
     public function phoneNumbers(): HasMany
     {

@@ -21,8 +21,8 @@ class SupplierResource extends JsonResource
             'email' => $this->resource->email,
             'address' => $this->resource->address,
             'city' => $this->resource->city,
-            'created_at' => $this->resource->created_at,
-            'updated_at' => $this->resource->updated_at,
+            'created_at' => $this->formatDateToTimestamp($this->resource->created_at),
+            'updated_at' => $this->formatDateToTimestamp($this->resource->updated_at),
         ];
     }
 }

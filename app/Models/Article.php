@@ -21,6 +21,12 @@ class Article extends Model
     ];
 
 
+    public function formatDateToTimestamp($dateTimeString): string
+    {
+        $timestamp = strtotime($dateTimeString);
+        return date('Y-m-d H:i:s', $timestamp);
+    }
+
     public function category(): BelongsTo
     {
      return $this->belongsTo(Category::class);

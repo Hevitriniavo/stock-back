@@ -16,6 +16,12 @@ class Delivery extends Model
     ];
 
 
+    public function formatDateToTimestamp($dateTimeString): string
+    {
+        $timestamp = strtotime($dateTimeString);
+        return date('Y-m-d H:i:s', $timestamp);
+    }
+
     public function deliveryDetails(): HasMany
     {
         return $this->hasMany(DeliveryDetail::class);

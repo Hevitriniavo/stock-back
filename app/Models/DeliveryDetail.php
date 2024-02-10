@@ -17,6 +17,12 @@ class DeliveryDetail extends Model
         'quantity_delivered',
     ];
 
+    public function formatDateToTimestamp($dateTimeString): string
+    {
+        $timestamp = strtotime($dateTimeString);
+        return date('Y-m-d H:i:s', $timestamp);
+    }
+
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);

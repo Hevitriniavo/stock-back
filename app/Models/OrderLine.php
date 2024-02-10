@@ -17,6 +17,12 @@ class OrderLine extends Model
         'quantity',
     ];
 
+    public function formatDateToTimestamp($dateTimeString): string
+    {
+        $timestamp = strtotime($dateTimeString);
+        return date('Y-m-d H:i:s', $timestamp);
+    }
+
     public function article(): BelongsTo
     {
         return $this->belongsTo(Article::class);

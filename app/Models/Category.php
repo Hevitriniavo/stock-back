@@ -15,6 +15,12 @@ class Category extends Model
     ];
 
 
+    public function formatDateToTimestamp($dateTimeString): string
+    {
+        $timestamp = strtotime($dateTimeString);
+        return date('Y-m-d H:i:s', $timestamp);
+    }
+
     public function articles(): HasMany
     {
         return $this->hasMany(Article::class);

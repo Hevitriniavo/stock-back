@@ -10,6 +10,17 @@ class PurchaseLine extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'purchase_id',
+        'article_id',
+        'buying_price',
+        'quantity'
+    ];
+    public function formatDateToTimestamp($dateTimeString): string
+    {
+        $timestamp = strtotime($dateTimeString);
+        return date('Y-m-d H:i:s', $timestamp);
+    }
 
     public function purchase(): BelongsTo
     {

@@ -17,8 +17,8 @@ class CategoryWithArticleResource extends JsonResource
         return [
             "id" => $this->resource->id,
             "name" => $this->resource->name,
-            'created_at' => $this->resource->created_at,
-            'updated_at' => $this->resource->updated_at,
+            'created_at' => $this->formatDateToTimestamp($this->resource->created_at),
+            'updated_at' => $this->formatDateToTimestamp($this->resource->updated_at),
             'articles' => ArticleResource::collection($this->whenLoaded('articles')),
         ];
     }

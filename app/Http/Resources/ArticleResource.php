@@ -19,7 +19,9 @@ class ArticleResource extends JsonResource
             'name' => $this->resource->name,
             'image' => $this->resource->imageUrl(),
             'unit_price' => $this->resource->unit_price,
-            'quantity_stock' => $this->resource->quantity_stock
+            'quantity_stock' => $this->resource->quantity_stock,
+            'created_at' => $this->formatDateToTimestamp($this->resource->created_at),
+            'updated_at' => $this->formatDateToTimestamp($this->resource->updated_at),
         ];
     }
 }

@@ -53,6 +53,12 @@ class User extends Authenticatable implements JWTSubject
         'password' => 'hashed',
     ];
 
+    public function formatDateToTimestamp($dateTimeString): string
+    {
+        $timestamp = strtotime($dateTimeString);
+        return date('Y-m-d H:i:s', $timestamp);
+    }
+
 
     public function getJWTIdentifier()
     {
@@ -74,6 +80,7 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->role === $role;
     }
+
 
 
     public function imageUrl(): ?string
