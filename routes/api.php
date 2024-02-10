@@ -43,6 +43,7 @@ Route::prefix('category')->group(function () {
 
 Route::prefix('article')->group(function () {
     Route::get('/all', [ArticleController::class, 'getArticles']);
+    Route::get('/{id}', [ArticleController::class, 'getArticle']);
     Route::post('/crup/{id?}', [ArticleController::class, 'storeOrUpdateArticle'])->where('id', '[0-9]*');
     Route::delete('/delete/{id}', [ArticleController::class, 'destroy'])->where(['id' => '[0-9]+']);
 });

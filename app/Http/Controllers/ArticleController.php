@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateArticleRequest;
 use App\Http\Resources\ArticleResource;
 use App\Models\Article;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,6 +19,19 @@ class ArticleController extends Controller
     }
 
 
+    public function getArticle(int $id): JsonResponse
+    {
+        $article = Article::find($id);
+
+        if (!$article) {
+            return response()->json([
+                'message' => 'Article not found',
+            ], 404);
+        }
+        return response()->json([
+            'article' => new ArticleResource($article)
+        ]);
+    }
     public function storeOrUpdateArticle(CreateArticleRequest $request, ?int $id = null): JsonResponse
     {
         if ($id !== null) {
