@@ -34,7 +34,7 @@ class SupplierController extends Controller
         ]);
     }
 
-    public function storeOrUpdate(CreateSupplierRequest $request, $id = null): JsonResponse
+    public function storeOrUpdateSupplier(CreateSupplierRequest $request, $id = null): JsonResponse
     {
         if ($id !== null) {
             $supplier = Supplier::findOrFail($id);
