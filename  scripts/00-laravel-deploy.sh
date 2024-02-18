@@ -32,6 +32,6 @@ php artisan route:cache
 
 # Run migrations
 echo "Running migrations..."
-php artisan migrate
+php artisan migrate --force
 
 echo "done deploying"
