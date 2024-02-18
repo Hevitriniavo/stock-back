@@ -10,24 +10,17 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 
-/**
- * Routes pour l'authentification
- */
 Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
 });
 
-/**
- * Routes publiques
- */
 Route::prefix('user')->group(function () {
     Route::get('/all', [UserController::class, 'getUsers']);
     Route::get('/{id}', [UserController::class, 'getUser'])->where(['id' => '[0-9]+']);
     Route::post('/crup/{id?}', [UserController::class, 'storeOrUpdateUser'])->where('id', '[0-9]*');;
     Route::delete('/delete/{id}', [UserController::class, 'destroy'])->where(['id' => '[0-9]+']);
 });
-
 
 Route::prefix('supplier')->group(function () {
     Route::get('/all', [SupplierController::class, 'getSuppliers']);
@@ -59,9 +52,6 @@ Route::prefix('customer')->group(function () {
     Route::delete('/delete/{id}', [CustomerController::class, 'destroy'])->where(['id' => '[0-9]+']);
 });
 
-
-
-
 Route::prefix('delivery')->group(function () {
     Route::get('/all', [DeliveryController::class, 'getDeliveries']);
     Route::get('/{id}', [DeliveryController::class, 'getDelivery']);
@@ -69,11 +59,6 @@ Route::prefix('delivery')->group(function () {
     Route::delete('/delete/{id}', [DeliveryController::class, 'destroy'])->where(['id' => '[0-9]+']);
 });
 
-
-
-/**
- * Authenticated routes
- */
 Route::middleware('auth:api')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);

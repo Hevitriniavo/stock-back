@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\UserController;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\LoginUserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -35,6 +36,10 @@ class AuthController extends Controller
         $user = User::create($this->controller->extractData($request, new User()));
 
         if ($user) {
+            if ( $user['image'] !== null){
+                $user['image'] = $user->imageUrl();
+            }
+            var_dump($user);
             $token = JWTAuth::fromUser($user);
             return $this->respondWithToken($token);
         } else {
@@ -48,9 +53,12 @@ class AuthController extends Controller
 
     public function respondWithToken($token):JsonResponse
     {
+        $user =auth()->user();
+        $user['image'] = $user->imageUrl();
         return response()->json([
             'status' => 'success',
             'access_token' => $token,
+            'user' => $user,
             'token_type' => 'bearer'
         ]);
     }

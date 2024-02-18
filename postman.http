@@ -9,7 +9,7 @@ Accept: application/json
     "phone_number": "123456789",
     "last_name": "Tantely",
     "username": "Tantely",
-    "email": "hei.tantely.2221123@gmail.com",
+    "email": "hei.tantely.222112AA3@gmail.com",
     "address": "123 Main Street",
     "city": "City ville",
     "password": "2022tantely2022",
@@ -24,8 +24,8 @@ Content-Type: application/json
 Accept: application/json
 
 {
-    "email": "hei.tantely2@gmail.com",
-    "password": "2022tantely2022"
+    "email": "Hevitriniavo1222@gmail.com",
+    "password": "azertyuiop"
 }
 
 
