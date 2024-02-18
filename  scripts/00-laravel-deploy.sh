@@ -11,12 +11,17 @@ cp /etc/secrets/.env .env
 composer global require hirak/prestissimo
 composer install --no-dev --working-dir=/var/www/html
 
+echo "generating application key..."
+php artisan key:generate --show
+
 # Create symbolic link for public storage
 php artisan storage:link
 
 # Clear caches
 echo "Clearing caches..."
 php artisan optimize:clear
+
+
 
 # Cache configurations and routes
 echo "Caching config..."
