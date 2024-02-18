@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Set permissions for storage directory
-chmod -R  775 /var/www/html/storage
+chmod -R   775 /var/www/html/storage
 
 # Copy environment file
 echo "Running composer"
@@ -11,6 +11,7 @@ cp /etc/secrets/.env .env
 composer global require hirak/prestissimo
 composer install --no-dev --working-dir=/var/www/html
 
+# Generate application key
 echo "generating application key..."
 php artisan key:generate --show
 
@@ -20,8 +21,6 @@ php artisan storage:link
 # Clear caches
 echo "Clearing caches..."
 php artisan optimize:clear
-
-
 
 # Cache configurations and routes
 echo "Caching config..."
@@ -34,5 +33,4 @@ php artisan route:cache
 echo "Running migrations..."
 php artisan migrate --force
 
-php artisan serve
 echo "done deploying"
